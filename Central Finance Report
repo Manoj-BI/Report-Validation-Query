@@ -32,7 +32,3 @@ CONVERT(VARCHAR(10), CRMAF_FilteredNew_Financials.new_submit_date, 111) = CONVER
 WHERE        (CRMAF_FilteredAccount.new_testaccountname = N'NO') AND (CRMAF_FilteredAccount.customertypecodename = N'School') OR
                          (CRMAF_FilteredAccount.customertypecodename = N'Closed School')
 ORDER BY CRMAF_FilteredAccount.Name, CRMAF_FilteredAccount.Address1_StateOrProvince, SD_Year, SD_Mon
-
-
-TIMEjason
-jacqwlin
