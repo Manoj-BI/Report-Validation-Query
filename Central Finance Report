@@ -1,0 +1,38 @@
+SELECT        CRMAF_FilteredAccount.customertypecodename, CRMAF_FilteredAccount.new_opendate, CRMAF_FilteredAccount.new_testaccountname, CRMAF_FilteredAccount.Name, CRMAF_FilteredAccount.AccountId, 
+                         CRMAF_FilteredAccount.Address1_StateOrProvince, CRMAF_FilteredAccount.new_licensedate, CRMAF_FilteredAccount.AccountNumber, 
+                         YEAR(CRMAF_FilteredNew_Financials.new_submit_date) AS SD_Year, { fn MONTHNAME(CRMAF_FilteredNew_Financials.new_submit_date) } AS SD_MName, 
+                         MONTH(CRMAF_FilteredNew_Financials.new_submit_date) AS SD_Mon, CRMAF_FilteredNew_Financials.new_submit_date, 
+                         FilteredNew_FTEStatistics.new_goddardcapacity, FilteredNew_FTEStatistics.new_eomftes AS new_endingftecount, CRMAF_FilteredNew_Financials.new_totaltuition_billed, 
+                         CRMAF_FilteredNew_Financials.new_registration_billed, CRMAF_FilteredNew_Financials.new_summer_camp_activity_fees_billed, 
+                         CRMAF_FilteredNew_Financials.new_extradays_billed, CRMAF_FilteredNew_Financials.new_kindergartenactivityfees, 
+                         CRMAF_FilteredNew_Financials.new_cateringfeesbilled, CRMAF_FilteredNew_Financials.new_extracurricularfeesbilled, 
+                         CRMAF_FilteredNew_Financials.new_earlydropofflatepickupfeesbilled, CRMAF_FilteredNew_Financials.new_late_fees_billed, 
+                         CRMAF_FilteredNew_Financials.new_bank_charges_billed, CRMAF_FilteredNew_Financials.new_other_fees_billed, 
+                         CRMAF_FilteredNew_Financials.new_otherfeeadjustments, CRMAF_FilteredNew_Financials.new_discounts_credits_billed, 
+                         CRMAF_FilteredNew_Financials.new_totalrevenueformonth, CRMAF_FilteredNew_Financials.new_cash_collected, CRMAF_FilteredNew_Financials.new_rent, 
+                         CRMAF_FilteredNew_Financials.new_propertytax, CRMAF_FilteredNew_Financials.new_utilities, CRMAF_FilteredNew_Financials.new_telephone, 
+                         CRMAF_FilteredNew_Financials.new_payroll, CRMAF_FilteredNew_Financials.new_payrolltax, CRMAF_FilteredNew_Financials.new_employeecost, 
+                         CRMAF_FilteredNew_Financials.new_officeexpense, CRMAF_FilteredNew_Financials.new_transportationexpense, 
+                         CRMAF_FilteredNew_Financials.new_royaltiesexpense, CRMAF_FilteredNew_Financials.new_schoolsupplies, 
+                         CRMAF_FilteredNew_Financials.new_childsnacksupplies, CRMAF_FilteredNew_Financials.new_advertising, CRMAF_FilteredNew_Financials.new_marketing, 
+                         CRMAF_FilteredNew_Financials.new_buildingmaintenance, CRMAF_FilteredNew_Financials.new_professionalfees, CRMAF_FilteredNew_Financials.new_insurance, 
+                         CRMAF_FilteredNew_Financials.new_miscexpenses, CRMAF_FilteredNew_Financials.new_baddebtexpenses, 
+                         CRMAF_FilteredNew_Financials.new_summercampexp, CRMAF_FilteredNew_Financials.new_totalopexpense, CRMAF_FilteredNew_Financials.new_opincome, 
+                         CRMAF_FilteredNew_Financials.new_capitalexp, CRMAF_FilteredNew_Financials.new_debtservice, CRMAF_FilteredNew_Financials.new_financialsid, 
+                         CRMAF_FilteredNew_Financials.new_preschoolrate, CRMAF_FilteredAccount.New_AdvertisingMarketIdName, CRMAF_FilteredAccount.New_BuildingSizesqft, 
+                         CRMAF_FilteredAccount.New_AnnexSize, CRMAF_FilteredAccount.New_SiteSquareFeet
+,ISNULL(CRMAF_FilteredNew_Financials.new_technology,0)ExpenseType
+
+ 
+
+FROM            FilteredAccount AS CRMAF_FilteredAccount LEFT OUTER JOIN
+                         FilteredNew_Financials AS CRMAF_FilteredNew_Financials ON CRMAF_FilteredAccount.AccountId = CRMAF_FilteredNew_Financials.new_locationfinancialsid
+                         LEFT OUTER JOIN FilteredNew_FTEStatistics ON CRMAF_FilteredAccount.accountid = FilteredNew_FTEStatistics.new_location_ftestatisticsid AND 
+CONVERT(VARCHAR(10), CRMAF_FilteredNew_Financials.new_submit_date, 111) = CONVERT(VARCHAR(10), FilteredNew_FTEStatistics.new_reportingperiod, 111)
+WHERE        (CRMAF_FilteredAccount.new_testaccountname = N'NO') AND (CRMAF_FilteredAccount.customertypecodename = N'School') OR
+                         (CRMAF_FilteredAccount.customertypecodename = N'Closed School')
+ORDER BY CRMAF_FilteredAccount.Name, CRMAF_FilteredAccount.Address1_StateOrProvince, SD_Year, SD_Mon
+
+
+TIMEjason
+jacqwlin
